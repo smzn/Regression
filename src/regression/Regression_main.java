@@ -24,7 +24,8 @@ public class Regression_main {
 		};*/
 		Regression_main rmain = new Regression_main();
 		double[][] x = rmain.getCSV2("csv/x.csv", 20, 4);
-		double y[] = {1.0,1.8,2.7,3.6,2.2,7.3,4.8,2.6,2.1,5.6,4.2,5.5,3.2,1.4,1.2,2.8,2.0,1.4,3.3,2.9};
+		//double y[] = {1.0,1.8,2.7,3.6,2.2,7.3,4.8,2.6,2.1,5.6,4.2,5.5,3.2,1.4,1.2,2.8,2.0,1.4,3.3,2.9};
+		double y[] = rmain.getCSV1("csv/y.csv", 20);
 		
 		Regression_lib slib = new Regression_lib(x, y);
 		
@@ -38,7 +39,6 @@ public class Regression_main {
 		Graph graph = new Graph(value);
 		graph.setBounds(5,5,755,455);
 		graph.setVisible(true);
-		
 	}
 
 	public double[][] getCSV2(String path, int row, int column) { //CSVから2次元データ取り込み
@@ -70,5 +70,32 @@ public class Regression_main {
 		return csvdata;
 		//CSVから取り込みここまで
 	}
-	
+
+	public double[] getCSV1(String path, int n) { //CSVから1次元データ取り込み(n:データ数)
+		//CSVから取り込み
+		double csvdata[] = new double[n];
+		try {
+			File f = new File(path);
+			BufferedReader br = new BufferedReader(new FileReader(f));
+				 
+			String[] data = new String[n];
+			String line = br.readLine();
+			data = line.split(",", 0);
+			line = br.readLine();
+			
+			br.close();
+			
+			// CSVから読み込んだ配列の中身を取り込み
+			for(int i = 0; i < data.length; i++) {
+				csvdata[i] = Double.parseDouble(data[i]);
+			}
+
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		System.out.println("CSV取り込み = "+Arrays.toString(csvdata));
+		return csvdata;
+		//CSVから取り込みここまで
+	}
+
 }
