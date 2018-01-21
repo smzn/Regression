@@ -22,10 +22,16 @@ public class Regression_main {
 		
 		Regression_lib slib = new Regression_lib(x, y);
 		
-		for(int i = 0; i < 300000; i++){
+		int iteration = 300000;
+		double value[] = new double[iteration];
+		for(int i = 0; i < iteration; i++){
 			System.out.println(i+" : Theta"+ Arrays.toString(slib.getGradient()));
 			System.out.println(i+" : Objective function = "+slib.getObject());
+			value[i] = slib.getObject();
 		}
+		Graph graph = new Graph(value);
+		graph.setBounds(5,5,755,455);
+		graph.setVisible(true);
 	}
 
 }
